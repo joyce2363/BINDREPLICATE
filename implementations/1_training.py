@@ -1,5 +1,9 @@
 from __future__ import division
 from __future__ import print_function
+
+# import ctypes
+# ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
+
 from torch_geometric.utils import convert
 import time
 import argparse
@@ -7,14 +11,14 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from implementations.utils import load_bail, load_income, load_pokec_renewed
-from implementations.GNNs import GCN
+from utils import load_bail, load_income, load_pokec_renewed #deleted implementation.utils
+from GNNs import GCN #delected implementations.GNNs
 from scipy.stats import wasserstein_distance
 from tqdm import tqdm
 import warnings
 warnings.filterwarnings('ignore')
-import ctypes
-ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
+# import ctypes
+# ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
 
 # Training settings
 parser = argparse.ArgumentParser()
@@ -22,7 +26,7 @@ parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='Disables CUDA training.')
 parser.add_argument('--fastmode', action='store_true', default=False,
                     help='Validate during training pass.')
-parser.add_argument('--dataset', type=str, default="income", help='One dataset from income, bail, pokec1, and pokec2.')
+parser.add_argument('--dataset', type=str, default="bail", help='One dataset from income, bail, pokec1, and pokec2.')
 parser.add_argument('--seed', type=int, default=10, help='Random seed.')
 parser.add_argument('--epochs', type=int, default=1000,
                     help='Number of epochs to train.')

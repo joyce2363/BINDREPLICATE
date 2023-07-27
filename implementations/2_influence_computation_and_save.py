@@ -1,6 +1,7 @@
-from implementations.utils import load_bail, load_income, load_pokec_renewed
+from utils import load_bail, load_income, load_pokec_renewed # deleted implementations
 from numpy import *
-from implementations.approximator import grad_z_graph, cal_influence_graph, s_test_graph_cost, cal_influence_graph_nodal
+from approximator import grad_z_graph, cal_influence_graph, s_test_graph_cost, cal_influence_graph_nodal
+# deleted implementations from .approximator
 import numpy as np
 import scipy.sparse as sp
 import torch
@@ -14,14 +15,30 @@ import argparse
 from torch_geometric.utils import convert
 import warnings
 warnings.filterwarnings('ignore')
-import ctypes
-ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
+# import ctypes
+# ctypes.cdll.LoadLibrary('caffe2_nvrtc.dll')
 torch.backends.cudnn.benchmark = True
+
+# running file debug
+import collections
+try:
+    from collections import OrderedDict
+except ImportError:
+    OrderedDict = dict
+
+device = torch.device("cpu")
+import torch
+import torch.nn as nn
+use_cuda = torch.cuda.is_available()
+device = torch.device("cuda" if use_cuda else "cpu")
+net = nn.Sequential(OrderedDict([ ('fc1', nn.Linear(3,1)) ]) )
+net = net.to(device)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default="bail", help='One dataset from income, bail, pokec1, and pokec2.')
 parser.add_argument('--seed', type=int, default=10, help='Random seed.')
 args = parser.parse_args()
+# end debug
 
 dataset_name = args.dataset
 np.random.seed(args.seed)

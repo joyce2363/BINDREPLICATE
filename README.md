@@ -195,3 +195,4 @@ To see Pearson correlation evaluations, run:
 ```
 python plots_effectiveness.py
 ```
+# BIND-REPLICATE
